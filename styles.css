@@ -68,6 +68,14 @@ button:hover {
     display: none;
 }
 
+#textDisplay {
+    word-wrap: break-word; /* Разбивать длинные слова */
+    overflow-wrap: break-word; /* Для совместимости */
+    max-width: 100%; /* Текст не выходит за рамки */
+    overflow: hidden; /* Скрывать текст, если он превышает размеры блока */
+    box-sizing: border-box; /* Учитывать отступы в ширине */
+}
+
 #message {
     margin-top: 15px;
     color: #d9534f; /* Красный для ошибок */

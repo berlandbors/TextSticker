@@ -56,6 +56,45 @@ showButton.addEventListener('click', () => {
     message.textContent = '';
 });
 
+const saveTextButton = document.getElementById('saveTextButton');
+
+saveTextButton.addEventListener('click', () => {
+    const userInput = document.getElementById('textInput').value.trim();
+    if (!userInput) {
+        message.textContent = 'Пожалуйста, введите текст перед сохранением.';
+        return;
+    }
+
+    const blob = new Blob([userInput], { type: 'text/plain' });
+    const link = document.createElement('a');
+    link.href = URL.createObjectURL(blob);
+    link.download = 'text.txt';
+    link.click();
+
+    message.textContent = 'Текст успешно сохранён!';
+});
+
+const loadTextButton = document.getElementById('loadTextButton');
+const fileInput = document.getElementById('fileInput');
+
+loadTextButton.addEventListener('click', () => {
+    fileInput.click(); // Открываем диалог выбора файла
+});
+
+fileInput.addEventListener('change', (event) => {
+    const file = event.target.files[0];
+    if (file && file.type === 'text/plain') {
+        const reader = new FileReader();
+        reader.onload = () => {
+            document.getElementById('textInput').value = reader.result;
+            message.textContent = 'Текст успешно загружен!';
+        };
+        reader.readAsText(file);
+    } else {
+        message.textContent = 'Пожалуйста, выберите текстовый файл.';
+    }
+});
+
 // Сохранение как изображение
 saveButton.addEventListener('click', () => {
     html2canvas(textDisplay).then((canvas) => {

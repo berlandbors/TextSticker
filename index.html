@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Сохранение текста как картинки</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>TextSticker</h1>
+        <!--h2>Введите текст</h2-->
+        <input type="text" id="textInput" placeholder="Введите ваш текст здесь" aria-label="Введите текст">
+        
+        <button id="settingsButton">Настроить текст</button>
+        <button id="showButton">Показать текст</button>
+        <button id="saveButton">Сохранить как картинку</button>
+
+        <div id="textDisplay" style="display: none;"></div>
+        <p id="message" aria-live="polite"></p>
+    </div>
+
+    <!-- Модальное окно -->
+    <div id="settingsModal" class="modal">
+        <div class="modal-content">
+            <span class="close">❌</span>
+            <h2>Настройки текста</h2>
+           <div class="modal-scrollable">
+            <label for="fontSelect">Выберите шрифт:</label>
+            <select id="fontSelect">
+                <option value="Arial">Arial</option>
+                <option value="Courier New">Courier New</option>
+                <option value="Georgia">Georgia</option>
+                <option value="Times New Roman">Times New Roman</option>
+                <option value="Verdana">Verdana</option>
+                <option value="Tahoma">Tahoma</option>
+                <option value="Comic Sans MS">Comic Sans MS</option>
+                <option value="Impact">Impact</option>
+                <option value="Lucida Console">Lucida Console</option>
+            </select><hr>
+
+            <label for="fontSize">Размер шрифта: <span id="fontSizeValue">24</span></label>
+            <input type="range" id="fontSize" min="10" max="100" value="24"><hr>
+
+            <label for="textColor">Цвет текста: <span id="textColorValue">#000000</span></label>
+            <input type="color" id="textColor" value="#000000"><hr>
+
+            <label for="shadowColor">Цвет тени: <span id="shadowColorValue">#888888</span></label>
+            <input type="color" id="shadowColor" value="#888888">
+
+            <label for="shadowOffsetX">Смещение тени по горизонтали: <span id="shadowOffsetXValue">2</span></label>
+            <input type="range" id="shadowOffsetX" min="-20" max="20" value="2"><hr>
+
+            <label for="shadowOffsetY">Смещение тени по вертикали: <span id="shadowOffsetYValue">2</span></label>
+            <input type="range" id="shadowOffsetY" min="-20" max="20" value="2"><hr>
+
+            <label for="shadowBlur">Размытие тени: <span id="shadowBlurValue">5</span></label>
+            <input type="range" id="shadowBlur" min="0" max="20" value="5"><hr>
+            
+            <label for="backgroundColor">Цвет фона:</label>
+           <input type="color" id="backgroundColor" value="#ffffff"> <hr>
+
+            <label>
+                <input type="checkbox" id="bold"> Жирный
+            </label>
+            <label>
+                <input type="checkbox" id="italic"> Курсив
+            </label><hr>
+
+            <label>Выравнивание текста:</label>
+            <div>
+                <button id="alignLeft">Слева</button>
+                <button id="alignCenter">По центру</button>
+                <button id="alignRight">Справа</button>
+            </div><hr>
+
+            <button id="applySettings">Применить</button>
+           </div>  
+        </div>
+    </div>
+
+    <script src="modal.js"></script>
+    <script src="textSettings.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</body>
+</html>

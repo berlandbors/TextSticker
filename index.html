@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Сохранение текста как картинки</title>
+    <title>TextSticker</title>
     <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&family=PT+Sans:wght@400;700&family=PT+Serif:wght@400;700&family=Open+Sans:wght@400;700&family=Noto+Sans:wght@400;700&family=Noto+Serif:wght@400;700&family=Lobster&family=Montserrat:wght@400;700&family=Raleway:wght@400;700&family=Rubik:wght@400;700&family=Comfortaa:wght@400;700&family=Fira+Sans:wght@400;700&family=Ubuntu:wght@400;700&family=Exo+2:wght@400;700&family=Playfair+Display:wght@400;700&family=Cormorant+Garamond:wght@400;700&family=Merriweather:wght@400;700&display=swap" rel="stylesheet">
 </head>
 <body>
     <div class="container">
@@ -29,18 +30,37 @@
             <span class="close">❌</span>
             <h2>Настройки текста</h2>
            <div class="modal-scrollable">
-            <label for="fontSelect">Выберите шрифт:</label>
-            <select id="fontSelect">
-                <option value="Arial">Arial</option>
-                <option value="Courier New">Courier New</option>
-                <option value="Georgia">Georgia</option>
-                <option value="Times New Roman">Times New Roman</option>
-                <option value="Verdana">Verdana</option>
-                <option value="Tahoma">Tahoma</option>
-                <option value="Comic Sans MS">Comic Sans MS</option>
-                <option value="Impact">Impact</option>
-                <option value="Lucida Console">Lucida Console</option>
-            </select><hr>
+            <label for="fontSelect">Выберите шрифт:</label><select id="fontSelect">
+    <!-- Системные шрифты -->
+    <option value="Arial">Arial</option>
+    <option value="Verdana">Verdana</option>
+    <option value="Tahoma">Tahoma</option>
+    <option value="Times New Roman">Times New Roman</option>
+    <option value="Courier New">Courier New</option>
+    <option value="Georgia">Georgia</option>
+    <option value="Comic Sans MS">Comic Sans MS</option>
+    <option value="Impact">Impact</option>
+
+    <!-- Google Fonts -->
+    <option value="'Roboto', sans-serif">Roboto</option>
+    <option value="'PT Sans', sans-serif">PT Sans</option>
+    <option value="'PT Serif', serif">PT Serif</option>
+    <option value="'Open Sans', sans-serif">Open Sans</option>
+    <option value="'Noto Sans', sans-serif">Noto Sans</option>
+    <option value="'Noto Serif', serif">Noto Serif</option>
+    <option value="'Lobster', cursive">Lobster</option>
+    <option value="'Montserrat', sans-serif">Montserrat</option>
+    <option value="'Raleway', sans-serif">Raleway</option>
+    <option value="'Rubik', sans-serif">Rubik</option>
+    <option value="'Comfortaa', cursive">Comfortaa</option>
+    <option value="'Fira Sans', sans-serif">Fira Sans</option>
+    <option value="'Ubuntu', sans-serif">Ubuntu</option>
+    <option value="'Exo 2', sans-serif">Exo 2</option>
+    <option value="'Playfair Display', serif">Playfair Display</option>
+    <option value="'Cormorant Garamond', serif">Cormorant Garamond</option>
+    <option value="'Merriweather', serif">Merriweather</option>
+</select>
+<hr>
 
             <label for="fontSize">Размер шрифта: <span id="fontSizeValue">24</span></label>
             <input type="range" id="fontSize" min="10" max="100" value="24"><hr>

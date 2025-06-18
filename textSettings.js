@@ -1,40 +1,36 @@
-// Элементы для ввода текста
+// Ввод и отображение
 const headerInput = document.getElementById('headerInput');
 const subtitleInput = document.getElementById('subtitleInput');
 const mainTextInput = document.getElementById('mainTextInput');
 
-// Элементы вывода
 const header = document.getElementById('header');
 const subtitle = document.getElementById('subtitle');
 const mainText = document.getElementById('mainText');
 const textDisplay = document.getElementById('textDisplay');
 const message = document.getElementById('message');
 
-// --- Настройки заголовка
+// Настройки для заголовка
 const headerFontSize = document.getElementById('headerFontSize');
-const headerFontSizeValue = document.getElementById('headerFontSizeValue');
 const headerColor = document.getElementById('headerColor');
-const headerColorValue = document.getElementById('headerColorValue');
 const headerBold = document.getElementById('headerBold');
 const headerItalic = document.getElementById('headerItalic');
+const headerFont = document.getElementById('headerFontSelect');
 
-// --- Настройки подзаголовка
+// Настройки для подзаголовка
 const subtitleFontSize = document.getElementById('subtitleFontSize');
-const subtitleFontSizeValue = document.getElementById('subtitleFontSizeValue');
 const subtitleColor = document.getElementById('subtitleColor');
-const subtitleColorValue = document.getElementById('subtitleColorValue');
 const subtitleBold = document.getElementById('subtitleBold');
 const subtitleItalic = document.getElementById('subtitleItalic');
+const subtitleFont = document.getElementById('subtitleFontSelect');
 
-// --- Настройки основного текста
+// Настройки для текста
 const mainFontSize = document.getElementById('mainFontSize');
-const mainFontSizeValue = document.getElementById('mainFontSizeValue');
 const mainColor = document.getElementById('mainColor');
-const mainColorValue = document.getElementById('mainColorValue');
 const mainBold = document.getElementById('mainBold');
 const mainItalic = document.getElementById('mainItalic');
+const mainFont = document.getElementById('mainFontSelect');
 
-// --- Общие элементы
+// Общие
 const backgroundColor = document.getElementById('backgroundColor');
 const applySettings = document.getElementById('applySettings');
 const showButton = document.getElementById('showButton');
@@ -43,23 +39,8 @@ const saveTextButton = document.getElementById('saveTextButton');
 const loadTextButton = document.getElementById('loadTextButton');
 const fileInput = document.getElementById('fileInput');
 
-// --- Синхронизация отображения значений слайдеров и цветов
-headerFontSize.addEventListener('input', () => headerFontSizeValue.textContent = headerFontSize.value);
-headerColor.addEventListener('input', () => headerColorValue.textContent = headerColor.value);
-subtitleFontSize.addEventListener('input', () => subtitleFontSizeValue.textContent = subtitleFontSize.value);
-subtitleColor.addEventListener('input', () => subtitleColorValue.textContent = subtitleColor.value);
-mainFontSize.addEventListener('input', () => mainFontSizeValue.textContent = mainFontSize.value);
-mainColor.addEventListener('input', () => mainColorValue.textContent = mainColor.value);
-backgroundColor.addEventListener('input', () => {
-    textDisplay.style.backgroundColor = backgroundColor.value;
-});
-
-// --- Показать текст
+// Показать текст
 showButton.addEventListener('click', () => {
-    if (!headerInput.value.trim() && !subtitleInput.value.trim() && !mainTextInput.value.trim()) {
-        message.textContent = 'Пожалуйста, введите хотя бы один блок текста.';
-        return;
-    }
     header.textContent = headerInput.value.trim();
     subtitle.textContent = subtitleInput.value.trim();
     mainText.textContent = mainTextInput.value.trim();
@@ -67,25 +48,28 @@ showButton.addEventListener('click', () => {
     message.textContent = '';
 });
 
-// --- Применить стили
+// Применить стили
 applySettings.addEventListener('click', () => {
     // Заголовок
     header.style.fontSize = `${headerFontSize.value}px`;
     header.style.color = headerColor.value;
     header.style.fontWeight = headerBold.checked ? 'bold' : 'normal';
     header.style.fontStyle = headerItalic.checked ? 'italic' : 'normal';
+    header.style.fontFamily = headerFont.value;
 
     // Подзаголовок
     subtitle.style.fontSize = `${subtitleFontSize.value}px`;
     subtitle.style.color = subtitleColor.value;
     subtitle.style.fontWeight = subtitleBold.checked ? 'bold' : 'normal';
     subtitle.style.fontStyle = subtitleItalic.checked ? 'italic' : 'normal';
+    subtitle.style.fontFamily = subtitleFont.value;
 
-    // Основной текст
+    // Текст
     mainText.style.fontSize = `${mainFontSize.value}px`;
     mainText.style.color = mainColor.value;
     mainText.style.fontWeight = mainBold.checked ? 'bold' : 'normal';
     mainText.style.fontStyle = mainItalic.checked ? 'italic' : 'normal';
+    mainText.style.fontFamily = mainFont.value;
 
     // Фон
     textDisplay.style.backgroundColor = backgroundColor.value;
@@ -93,7 +77,7 @@ applySettings.addEventListener('click', () => {
     message.textContent = 'Стили применены!';
 });
 
-// --- Выравнивание
+// Выравнивание
 document.getElementById('alignLeft').addEventListener('click', () => {
     header.style.textAlign = 'left';
     subtitle.style.textAlign = 'left';
@@ -110,7 +94,7 @@ document.getElementById('alignRight').addEventListener('click', () => {
     mainText.style.textAlign = 'right';
 });
 
-// --- Сохранение текста как txt
+// Сохранение текста
 saveTextButton.addEventListener('click', () => {
     const data = {
         header: headerInput.value.trim(),
@@ -118,7 +102,7 @@ saveTextButton.addEventListener('click', () => {
         text: mainTextInput.value.trim()
     };
     if (!data.header && !data.subtitle && !data.text) {
-        message.textContent = 'Пожалуйста, введите текст перед сохранением.';
+        message.textContent = 'Введите текст перед сохранением.';
         return;
     }
     const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' });
@@ -129,9 +113,8 @@ saveTextButton.addEventListener('click', () => {
     message.textContent = 'Текст успешно сохранён!';
 });
 
-// --- Загрузка текста из файла
+// Загрузка текста
 loadTextButton.addEventListener('click', () => fileInput.click());
-
 fileInput.addEventListener('change', (event) => {
     const file = event.target.files[0];
     if (!file) return;
@@ -143,14 +126,14 @@ fileInput.addEventListener('change', (event) => {
             subtitleInput.value = data.subtitle || '';
             mainTextInput.value = data.text || '';
             message.textContent = 'Текст успешно загружен!';
-        } catch (e) {
+        } catch {
             message.textContent = 'Ошибка формата файла.';
         }
     };
     reader.readAsText(file);
 });
 
-// --- Сохранение как изображение (требует html2canvas)
+// Экспорт в PNG
 saveButton.addEventListener('click', () => {
     html2canvas(textDisplay).then((canvas) => {
         const link = document.createElement('a');

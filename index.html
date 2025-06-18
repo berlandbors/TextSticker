@@ -10,95 +10,151 @@
 <body>
     <div class="container">
         <h1>TextSticker</h1>
-        <!--h2>Введите текст</h2-->
-        <button id="saveTextButton">Сохранить текст</button>
-<button id="loadTextButton">Загрузить текст</button>
-<input type="file" id="fileInput" style="display: none;" accept=".txt"><hr>
-       <textarea id="textInput" placeholder="Введите ваш текст здесь" aria-label="Введите текст"></textarea>
         
-        <button id="settingsButton">Настроить текст</button>
-        <button id="showButton">Показать текст</button>
-        <button id="saveButton">Сохранить как картинку</button>
+        <div class="inputs">
+            <textarea id="headerInput" placeholder="Заголовок"></textarea>
+            <textarea id="subtitleInput" placeholder="Подзаголовок"></textarea>
+            <textarea id="mainTextInput" placeholder="Основной текст"></textarea>
+        </div>
 
-        <div id="textDisplay" style="display: none;"></div>
+        <div class="actions">
+            <button id="saveTextButton">Сохранить текст</button>
+            <button id="loadTextButton">Загрузить текст</button>
+            <input type="file" id="fileInput" style="display: none;" accept=".json">
+            <button id="settingsButton">Настроить</button>
+            <button id="showButton">Показать</button>
+            <button id="saveButton">Сохранить как картинку</button>
+        </div>
+
+        <div id="textDisplay" style="display:none;">
+            <div id="header"></div>
+            <div id="subtitle"></div>
+            <div id="mainText"></div>
+        </div>
         <p id="message" aria-live="polite"></p>
     </div>
 
-    <!-- Модальное окно -->
+    <!-- Модальное окно с настройками для каждого блока -->
     <div id="settingsModal" class="modal">
         <div class="modal-content">
-            <span class="close">❌</span>
+            <span class="close">&times;</span>
             <h2>Настройки текста</h2>
-           <div class="modal-scrollable">
-            <label for="fontSelect">Выберите шрифт:</label><select id="fontSelect">
-    <!-- Системные шрифты -->
-    <option value="Arial">Arial</option>
-    <option value="Verdana">Verdana</option>
-    <option value="Tahoma">Tahoma</option>
-    <option value="Times New Roman">Times New Roman</option>
-    <option value="Courier New">Courier New</option>
-    <option value="Georgia">Georgia</option>
-    <option value="Comic Sans MS">Comic Sans MS</option>
-    <option value="Impact">Impact</option>
+            <div class="modal-scrollable">
 
-    <!-- Google Fonts -->
-    <option value="'Roboto', sans-serif">Roboto</option>
-    <option value="'PT Sans', sans-serif">PT Sans</option>
-    <option value="'PT Serif', serif">PT Serif</option>
-    <option value="'Open Sans', sans-serif">Open Sans</option>
-    <option value="'Noto Sans', sans-serif">Noto Sans</option>
-    <option value="'Noto Serif', serif">Noto Serif</option>
-    <option value="'Lobster', cursive">Lobster</option>
-    <option value="'Montserrat', sans-serif">Montserrat</option>
-    <option value="'Raleway', sans-serif">Raleway</option>
-    <option value="'Rubik', sans-serif">Rubik</option>
-    <option value="'Comfortaa', cursive">Comfortaa</option>
-    <option value="'Fira Sans', sans-serif">Fira Sans</option>
-    <option value="'Ubuntu', sans-serif">Ubuntu</option>
-    <option value="'Exo 2', sans-serif">Exo 2</option>
-    <option value="'Playfair Display', serif">Playfair Display</option>
-    <option value="'Cormorant Garamond', serif">Cormorant Garamond</option>
-    <option value="'Merriweather', serif">Merriweather</option>
-</select>
-<hr>
+                <h3>Заголовок</h3>
+                <label>Шрифт: <select id="headerFontSelect" class="fontSelect">
+                    <option value="Arial">Arial</option>
+                    <option value="Verdana">Verdana</option>
+                    <option value="Tahoma">Tahoma</option>
+                    <option value="Times New Roman">Times New Roman</option>
+                    <option value="Courier New">Courier New</option>
+                    <option value="Georgia">Georgia</option>
+                    <option value="Comic Sans MS">Comic Sans MS</option>
+                    <option value="Impact">Impact</option>
+                    <option value="'Roboto', sans-serif">Roboto</option>
+                    <option value="'PT Sans', sans-serif">PT Sans</option>
+                    <option value="'PT Serif', serif">PT Serif</option>
+                    <option value="'Open Sans', sans-serif">Open Sans</option>
+                    <option value="'Noto Sans', sans-serif">Noto Sans</option>
+                    <option value="'Noto Serif', serif">Noto Serif</option>
+                    <option value="'Lobster', cursive">Lobster</option>
+                    <option value="'Montserrat', sans-serif">Montserrat</option>
+                    <option value="'Raleway', sans-serif">Raleway</option>
+                    <option value="'Rubik', sans-serif">Rubik</option>
+                    <option value="'Comfortaa', cursive">Comfortaa</option>
+                    <option value="'Fira Sans', sans-serif">Fira Sans</option>
+                    <option value="'Ubuntu', sans-serif">Ubuntu</option>
+                    <option value="'Exo 2', sans-serif">Exo 2</option>
+                    <option value="'Playfair Display', serif">Playfair Display</option>
+                    <option value="'Cormorant Garamond', serif">Cormorant Garamond</option>
+                    <option value="'Merriweather', serif">Merriweather</option>
+                </select></label>
+                <label>Размер: <input type="number" id="headerFontSize" min="10" max="100" value="36"></label>
+                <label>Цвет: <input type="color" id="headerColor" value="#222222"></label>
+                <label><input type="checkbox" id="headerBold"> Жирный</label>
+                <label><input type="checkbox" id="headerItalic"> Курсив</label>
+                <hr>
 
-            <label for="fontSize">Размер шрифта: <span id="fontSizeValue">24</span></label>
-            <input type="range" id="fontSize" min="10" max="100" value="24"><hr>
+                <h3>Подзаголовок</h3>
+                <label>Шрифт: <select id="subtitleFontSelect" class="fontSelect">
+                    <!-- такие же опции, как и выше -->
+                    <option value="Arial">Arial</option>
+                    <option value="Verdana">Verdana</option>
+                    <option value="Tahoma">Tahoma</option>
+                    <option value="Times New Roman">Times New Roman</option>
+                    <option value="Courier New">Courier New</option>
+                    <option value="Georgia">Georgia</option>
+                    <option value="Comic Sans MS">Comic Sans MS</option>
+                    <option value="Impact">Impact</option>
+                    <option value="'Roboto', sans-serif">Roboto</option>
+                    <option value="'PT Sans', sans-serif">PT Sans</option>
+                    <option value="'PT Serif', serif">PT Serif</option>
+                    <option value="'Open Sans', sans-serif">Open Sans</option>
+                    <option value="'Noto Sans', sans-serif">Noto Sans</option>
+                    <option value="'Noto Serif', serif">Noto Serif</option>
+                    <option value="'Lobster', cursive">Lobster</option>
+                    <option value="'Montserrat', sans-serif">Montserrat</option>
+                    <option value="'Raleway', sans-serif">Raleway</option>
+                    <option value="'Rubik', sans-serif">Rubik</option>
+                    <option value="'Comfortaa', cursive">Comfortaa</option>
+                    <option value="'Fira Sans', sans-serif">Fira Sans</option>
+                    <option value="'Ubuntu', sans-serif">Ubuntu</option>
+                    <option value="'Exo 2', sans-serif">Exo 2</option>
+                    <option value="'Playfair Display', serif">Playfair Display</option>
+                    <option value="'Cormorant Garamond', serif">Cormorant Garamond</option>
+                    <option value="'Merriweather', serif">Merriweather</option>
+                </select></label>
+                <label>Размер: <input type="number" id="subtitleFontSize" min="10" max="100" value="24"></label>
+                <label>Цвет: <input type="color" id="subtitleColor" value="#444444"></label>
+                <label><input type="checkbox" id="subtitleBold"> Жирный</label>
+                <label><input type="checkbox" id="subtitleItalic"> Курсив</label>
+                <hr>
 
-            <label for="textColor">Цвет текста: <span id="textColorValue">#000000</span></label>
-            <input type="color" id="textColor" value="#000000"><hr>
+                <h3>Основной текст</h3>
+                <label>Шрифт: <select id="mainFontSelect" class="fontSelect">
+                    <!-- такие же опции, как и выше -->
+                    <option value="Arial">Arial</option>
+                    <option value="Verdana">Verdana</option>
+                    <option value="Tahoma">Tahoma</option>
+                    <option value="Times New Roman">Times New Roman</option>
+                    <option value="Courier New">Courier New</option>
+                    <option value="Georgia">Georgia</option>
+                    <option value="Comic Sans MS">Comic Sans MS</option>
+                    <option value="Impact">Impact</option>
+                    <option value="'Roboto', sans-serif">Roboto</option>
+                    <option value="'PT Sans', sans-serif">PT Sans</option>
+                    <option value="'PT Serif', serif">PT Serif</option>
+                    <option value="'Open Sans', sans-serif">Open Sans</option>
+                    <option value="'Noto Sans', sans-serif">Noto Sans</option>
+                    <option value="'Noto Serif', serif">Noto Serif</option>
+                    <option value="'Lobster', cursive">Lobster</option>
+                    <option value="'Montserrat', sans-serif">Montserrat</option>
+                    <option value="'Raleway', sans-serif">Raleway</option>
+                    <option value="'Rubik', sans-serif">Rubik</option>
+                    <option value="'Comfortaa', cursive">Comfortaa</option>
+                    <option value="'Fira Sans', sans-serif">Fira Sans</option>
+                    <option value="'Ubuntu', sans-serif">Ubuntu</option>
+                    <option value="'Exo 2', sans-serif">Exo 2</option>
+                    <option value="'Playfair Display', serif">Playfair Display</option>
+                    <option value="'Cormorant Garamond', serif">Cormorant Garamond</option>
+                    <option value="'Merriweather', serif">Merriweather</option>
+                </select></label>
+                <label>Размер: <input type="number" id="mainFontSize" min="10" max="100" value="18"></label>
+                <label>Цвет: <input type="color" id="mainColor" value="#000000"></label>
+                <label><input type="checkbox" id="mainBold"> Жирный</label>
+                <label><input type="checkbox" id="mainItalic"> Курсив</label>
+                <hr>
 
-            <label for="shadowColor">Цвет тени: <span id="shadowColorValue">#888888</span></label>
-            <input type="color" id="shadowColor" value="#888888">
-
-            <label for="shadowOffsetX">Смещение тени по горизонтали: <span id="shadowOffsetXValue">2</span></label>
-            <input type="range" id="shadowOffsetX" min="-20" max="20" value="2"><hr>
-
-            <label for="shadowOffsetY">Смещение тени по вертикали: <span id="shadowOffsetYValue">2</span></label>
-            <input type="range" id="shadowOffsetY" min="-20" max="20" value="2"><hr>
-
-            <label for="shadowBlur">Размытие тени: <span id="shadowBlurValue">5</span></label>
-            <input type="range" id="shadowBlur" min="0" max="20" value="5"><hr>
-            
-            <label for="backgroundColor">Цвет фона:</label>
-           <input type="color" id="backgroundColor" value="#ffffff"> <hr>
-
-            <label>
-                <input type="checkbox" id="bold"> Жирный
-            </label>
-            <label>
-                <input type="checkbox" id="italic"> Курсив
-            </label><hr>
-
-            <label>Выравнивание текста:</label>
-            <div>
-                <button id="alignLeft">Слева</button>
-                <button id="alignCenter">По центру</button>
-                <button id="alignRight">Справа</button>
-            </div><hr>
-
-            <button id="applySettings">Применить</button>
-           </div>  
+                <h3>Общие настройки</h3>
+                <label>Цвет фона: <input type="color" id="backgroundColor" value="#ffffff"></label>
+                <div>
+                    <label>Выравнивание:</label>
+                    <button id="alignLeft" type="button">Слева</button>
+                    <button id="alignCenter" type="button">По центру</button>
+                    <button id="alignRight" type="button">Справа</button>
+                </div>
+                <button id="applySettings" class="modal-apply">Применить</button>
+            </div>
         </div>
     </div>
 
